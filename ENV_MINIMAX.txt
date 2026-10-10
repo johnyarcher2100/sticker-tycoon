@@ -1,0 +1,12 @@
+# 貼到 Netlify Environment variables
+MINIMAX_API_KEY=你的Minimax API Key（去 https://platform.minimaxi.chat/ 申請）
+MINIMAX_GROUP_ID=你的GroupId（同頁面）
+
+# 保留舊的 Supabase
+SUPABASE_URL=https://qtzdtojnsiqqxsyboyoa.supabase.co
+SUPABASE_ANON_KEY=你的anon key
+SUPABASE_SERVICE_ROLE_KEY=你的service key
+
+# LINE
+LINE_CHANNEL_ACCESS_TOKEN=你的token
+LINE_CHANNEL_SECRET=你的secret
