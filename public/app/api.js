@@ -1,0 +1,1 @@
+window.StickerAPI={API_BASE:'/.netlify/functions'};

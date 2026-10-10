@@ -1,0 +1,1 @@
+export function handleCorsPreflight(event){ return {statusCode:204, headers:{'Access-Control-Allow-Origin':'*','Access-Control-Allow-Methods':'GET,POST,PUT,DELETE,OPTIONS','Access-Control-Allow-Headers':'Content-Type,Authorization,X-Admin-Api-Key'}}; }

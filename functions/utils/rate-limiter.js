@@ -1,0 +1,1 @@
+export class RateLimiter{constructor(){this.map=new Map();} check(k,lim=10,win=60000){const now=Date.now(); const r=this.map.get(k)||[]; const v=r.filter(t=>now-t<win); if(v.length>=lim) return {allowed:false}; v.push(now); this.map.set(k,v); return {allowed:true,remaining:lim-v.length};}} export const defaultRateLimiter=new RateLimiter();

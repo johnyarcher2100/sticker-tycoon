@@ -1,0 +1,1 @@
+window.StickerAuth={isLoggedIn:()=>!!localStorage.getItem('sticker_session'), loginWithLine:async(t)=>{const r=await fetch('/api/auth/line-login',{method:'POST',headers:{Authorization:`Bearer ${t}`}}); return r.json();}};

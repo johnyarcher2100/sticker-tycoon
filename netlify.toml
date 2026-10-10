@@ -1,0 +1,149 @@
+[build]
+  functions = "functions"
+  publish = "public"
+  command = ""
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[functions]
+  node_bundler = "esbuild"
+  external_node_modules = ["sharp"]
+  included_files = ["functions/**"]
+
+# Critical timeouts - LINE Bot must respond within 10s
+[functions."line-webhook"]
+  timeout = 10
+[functions."image-processor"]
+  timeout = 30
+[functions."download-pack"]
+  timeout = 30
+[functions."admin-rich-menu"]
+  timeout = 30
+[functions."admin-cleanup"]
+  timeout = 60
+[functions."admin-coupons"]
+  timeout = 60
+[functions."pack-for-line"]
+  timeout = 26
+[functions."analyze-style-image"]
+  timeout = 26
+[functions."web-api-sticker-create"]
+  timeout = 30
+[functions."web-api-sticker-generate"]
+  timeout = 26
+
+# Background - 15 min max
+[functions."admin-coupons-regenerate-background"]
+  timeout = 900
+[functions."generate-morning-greeting-background"]
+  timeout = 900
+[functions."sticker-generator-worker-background"]
+  timeout = 900
+[functions."analyze-style-image-background"]
+  timeout = 900
+[functions."pack-for-line-background"]
+  timeout = 900
+
+# Scheduled - 05:00 Asia/Taipei = 21:00 UTC
+[functions."scheduled-morning-greeting-background"]
+  schedule = "0 21 * * *"
+
+# Web API default 10s
+[functions."web-api-auth-register"]
+  timeout = 10
+[functions."web-api-auth-login"]
+  timeout = 10
+[functions."web-api-auth-verify"]
+  timeout = 10
+[functions."web-api-auth-refresh"]
+  timeout = 10
+[functions."web-api-user-profile"]
+  timeout = 10
+[functions."web-api-sticker-status"]
+  timeout = 10
+[functions."web-api-sticker-list"]
+  timeout = 10
+[functions."web-api-sticker-detail"]
+  timeout = 10
+
+# P0 Security fixes - anon key injection via build env, not hardcoded
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# API redirects
+[[redirects]]
+  from = "/api/auth/line-login"
+  to = "/.netlify/functions/web-api-auth-line-login"
+  status = 200
+  force = true
+[[redirects]]
+  from = "/api/auth/login"
+  to = "/.netlify/functions/web-api-auth-login"
+  status = 200
+[[redirects]]
+  from = "/api/auth/register"
+  to = "/.netlify/functions/web-api-auth-register"
+  status = 200
+[[redirects]]
+  from = "/api/auth/verify"
+  to = "/.netlify/functions/web-api-auth-verify"
+  status = 200
+[[redirects]]
+  from = "/api/auth/refresh"
+  to = "/.netlify/functions/web-api-auth-refresh"
+  status = 200
+[[redirects]]
+  from = "/api/user/profile"
+  to = "/.netlify/functions/web-api-user-profile"
+  status = 200
+[[redirects]]
+  from = "/api/stickers/create"
+  to = "/.netlify/functions/web-api-sticker-create"
+  status = 200
+[[redirects]]
+  from = "/api/stickers/generate"
+  to = "/.netlify/functions/web-api-sticker-generate"
+  status = 200
+[[redirects]]
+  from = "/api/stickers/status"
+  to = "/.netlify/functions/web-api-sticker-status"
+  status = 200
+[[redirects]]
+  from = "/api/stickers/list"
+  to = "/.netlify/functions/web-api-sticker-list"
+  status = 200
+[[redirects]]
+  from = "/api/stickers/detail"
+  to = "/.netlify/functions/web-api-sticker-detail"
+  status = 200
+[[redirects]]
+  from = "/api/youtuber-promotion/apply"
+  to = "/.netlify/functions/youtuber-promotion-apply"
+  status = 200
+[[redirects]]
+  from = "/api/youtuber-promotion/*"
+  to = "/.netlify/functions/youtuber-promotion-:splat"
+  status = 200
+[[redirects]]
+  from = "/api/admin/rich-menu-info"
+  to = "/.netlify/functions/admin-rich-menu"
+  status = 200
+[[redirects]]
+  from = "/api/admin/update-rich-menu"
+  to = "/.netlify/functions/admin-rich-menu"
+  status = 200
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# SPA fallback for app
+[[redirects]]
+  from = "/app/*"
+  to = "/app/index.html"
+  status = 200

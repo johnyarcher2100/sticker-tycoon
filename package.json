@@ -1,0 +1,24 @@
+{
+  "name": "sticker-tycoon-v801",
+  "version": "0.801.0",
+  "type": "module",
+  "description": "貼圖大亨 Sticker Tycoon - LINE AI sticker generator, rebuilt in Meta AI",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "dev": "netlify dev",
+    "build": "echo No build - native ES6 + Tailwind CDN"
+  },
+  "dependencies": {
+    "@line/bot-sdk": "^8.0.2",
+    "@supabase/supabase-js": "^2.45.0",
+    "axios": "^1.7.2",
+    "sharp": "^0.33.4",
+    "archiver": "^7.0.1",
+    "uuid": "^10.0.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@netlify/functions": "^2.8.0"
+  },
+  "netlify": { "functions": "functions" }
+}
